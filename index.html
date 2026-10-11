@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101b1a">
+<title>Senga atalgan dunyo ♡</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--white:#fff;--glass:rgba(255,255,255,.105)}
+html,body{
+ width:100%;height:100%;overflow:hidden;
+ background:#101b1a;color:white;
+ font-family:Georgia,"Times New Roman",serif;
+}
+button{font:inherit;color:inherit;cursor:pointer}
+#world{
+ position:fixed;inset:-3%;
+ background:
+ linear-gradient(180deg,rgba(4,14,15,.24),rgba(3,13,13,.52) 55%,rgba(2,8,9,.86)),
+ url("https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2000&q=90")
+ center/cover no-repeat;
+ transform:scale(1.06);
+ transition:transform .35s ease-out;
+ animation:breath 18s ease-in-out infinite alternate;
+}
+@keyframes breath{
+ from{filter:brightness(.86);background-position:center}
+ to{filter:brightness(1.06);background-position:52% 48%}
+}
+#rain{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+.shade{
+ position:fixed;inset:0;pointer-events:none;
+ background:radial-gradient(ellipse at center,transparent 15%,rgba(0,0,0,.35) 100%);
+}
+.top{
+ position:fixed;top:max(20px,env(safe-area-inset-top));
+ left:18px;right:18px;display:flex;
+ justify-content:space-between;align-items:center;z-index:3;
+}
+.brand{
+ font:10px Arial,sans-serif;letter-spacing:4px;
+ text-transform:uppercase;color:#ffffffc4;
+}
+.sound{
+ width:44px;height:44px;border:1px solid #ffffff4a;
+ background:var(--glass);border-radius:50%;
+ backdrop-filter:blur(16px);font-size:17px;
+}
+main{
+ position:fixed;inset:0;display:flex;align-items:center;
+ justify-content:center;padding:78px 24px 74px;z-index:2;
+}
+.panel{
+ width:min(100%,390px);text-align:center;
+ padding:35px 23px 29px;border:1px solid #ffffff35;
+ border-radius:28px;background:rgba(12,26,24,.27);
+ backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px);
+ box-shadow:0 20px 70px #0004;
+ animation:appear 1.2s ease both;
+}
+@keyframes appear{
+ from{opacity:0;transform:translateY(18px)}
+ to{opacity:1;transform:translateY(0)}
+}
+.eyebrow{
+ color:#d5e4d9;font:10px Arial,sans-serif;
+ letter-spacing:3px;text-transform:uppercase;margin-bottom:25px;
+}
+.flower{font-size:24px;color:#e9d9bb;margin-bottom:16px}
+h1{
+ font-size:clamp(32px,9vw,47px);font-weight:400;
+ line-height:1.2;letter-spacing:-1px;
+ text-shadow:0 3px 25px #0005;
+}
+h1 em{font-weight:400;color:#e5d4b9}
+.line{
+ width:44px;height:1px;background:#e5d4b9;
+ margin:24px auto;
+}
+.message{
+ font-size:16px;line-height:1.9;color:#f2f3ed;
+ min-height:94px;white-space:pre-line;
+}
+.actions{
+ display:flex;flex-direction:column;gap:11px;margin-top:24px;
+}
+.btn{
+ width:100%;padding:15px 16px;border-radius:15px;
+ border:1px solid #ffffff48;background:#ffffff12;
+ backdrop-filter:blur(8px);font-size:14px;
+ transition:transform .2s,background .2s;
+}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:#eee8dc;color:#23302a;border-color:#eee8dc}
+.btn.secondary{color:#f4f1e9}
+.footer{
+ position:fixed;bottom:max(20px,env(safe-area-inset-bottom));
+ left:0;right:0;text-align:center;z-index:3;
+ font:10px Arial,sans-serif;letter-spacing:2px;color:#ffffff9c;
+}
+.page{display:none}
+.page.active{display:block;animation:appear .7s ease both}
+#surprise{display:none;margin-top:18px}
+#surprise.show{display:block;animation:appear .8s ease both}
+.surprise-text{
+ border-top:1px solid #ffffff35;margin-top:22px;padding-top:20px;
+ color:#f2e4cd;font-size:17px;line-height:1.9;
+}
+#toast{
+ position:fixed;left:50%;bottom:75px;transform:translateX(-50%);
+ width:max-content;max-width:85%;text-align:center;
+ font:12px Arial,sans-serif;line-height:1.5;
+ color:white;background:#101b1acc;border:1px solid #ffffff30;
+ padding:12px 17px;border-radius:30px;z-index:5;
+ opacity:0;pointer-events:none;transition:opacity .3s;
+}
+#toast.show{opacity:1}
+@media(max-height:650px){
+ .panel{padding:23px 20px}
+ .eyebrow{margin-bottom:15px}
+ .line{margin:15px auto}
+ .message{font-size:14px;min-height:70px}
+ .actions{margin-top:16px;gap:8px}
+ .btn{padding:12px}
+}
+</style>
+</head>
+
+<body>
+<div id="world"></div>
+<canvas id="rain"></canvas>
+<div class="shade"></div>
+
+<div class="top">
+ <div class="brand">A LITTLE WORLD FOR YOU</div>
+ <button class="sound" id="soundBtn" aria-label="Ovozni yoqish">♫</button>
+</div>
+
+<main>
+ <section class="panel">
+  <div class="page active" id="home">
+   <div class="eyebrow">Bugun faqat sen uchun</div>
+   <div class="flower">✳</div>
+   <h1>Bir oz<br><em>tinchlan, jonim.</em></h1>
+   <div class="line"></div>
+   <p class="message">Shoshilma...
+Bu yerda hech qayerga
+ulgurishing shart emas.</p>
+   <div class="actions">
+    <button class="btn primary" id="startBtn">Kichik dunyomni och ♡</button>
+    <button class="btn secondary" id="soundTextBtn">Tabiat ovozini eshit ♫</button>
+   </div>
+  </div>
+
+  <div class="page" id="second">
+   <div class="eyebrow">Senga bir gapim bor</div>
+   <div class="flower">☾</div>
+   <h1>Sen ham<br><em>dam olishga loyiqsan.</em></h1>
+   <div class="line"></div>
+   <p class="message">Ba'zan hamma narsadan biroz uzoqlashib,
+shunchaki nafas olish ham kerak.
+
+Bugun o'zingga ham mehr ber.
+Sen doim kuchli bo'lishing shart emas.</p>
+   <div class="actions">
+    <button class="btn primary" id="giftBtn">Senga atalgan xat ♡</button>
+    <button class="btn secondary" id="backBtn">Orqaga</button>
+   </div>
+   <div id="surprise">
+    <p class="surprise-text">Bilasanmi, sening tabassuming
+oddiy bir kunni ham chiroyli
+qilib yuborishi mumkin.
+
+Agar bugun ko'nglingni og'ritgan
+bo'lsam, meni kechir.
+Seni xafa qilish niyatim yo'q edi.
+
+Men sening kulishingni xohlayman.
+Lekin xafa bo'lsang ham, hislaringni
+yashirishing shart emas.
+
+♡ Shoshilmaymiz. Hammasi yaxshi bo'lsin.</p>
+    <div class="actions">
+     <button class="btn primary" id="endBtn">Yana bir bor och ♡</button>
+    </div>
+   </div>
+  </div>
+
+  <div class="page" id="last">
+   <div class="eyebrow">Senga kichkina tilak</div>
+   <div class="flower">✧</div>
+   <h1><em>Ko'ngling</em><br>yorug' bo'lsin.</h1>
+   <div class="line"></div>
+   <p class="message">Yomg'ir ham bir kun to'xtaydi.
+Bulutlar ham tarqaladi.
+
+O'zingni ehtiyot qil.
+Sen baxtli bo'lishga loyiqsan. ♡</p>
+   <div class="actions">
+    <button class="btn primary" id="againBtn">Boshidan tomosha qil</button>
+   </div>
+  </div>
+ </section>
+</main>
+
+<div class="footer">NAFAS OL · SHOSHILMA · TABASSUM QIL</div>
+<div id="toast">Ovoz yoqildi ♫</div>
+
+<audio id="rainAudio"
+ src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Garden_rainfall.ogg"
+ loop preload="none"></audio>
+
+<script>
+const $=id=>document.getElementById(id);
+const pages=["home","second","last"];
+function showPage(name){
+ pages.forEach(id=>$(id).classList.toggle("active",id===name));
+}
+$("startBtn").onclick=()=>showPage("second");
+$("backBtn").onclick=()=>showPage("home");
+$("giftBtn").onclick=()=>{
+ $("surprise").classList.add("show");
+ $("giftBtn").style.display="none";
+};
+$("endBtn").onclick=()=>{
+ $("surprise").classList.remove("show");
+ $("giftBtn").style.display="block";
+ showPage("last");
+};
+$("againBtn").onclick=()=>{
+ $("surprise").classList.remove("show");
+ $("giftBtn").style.display="block";
+ showPage("home");
+};
+
+const audio=$("rainAudio");
+const soundBtn=$("soundBtn");
+let soundOn=false, volume=.35;
+async function toggleSound(){
+ if(!soundOn){
+  try{
+   audio.volume=volume;
+   await audio.play();
+   soundOn=true;
+   soundBtn.textContent="♫";
+   $("soundTextBtn").textContent="Ovozni o'chirish ×";
+   notify("Tabiat ovozi yoqildi ♫");
+  }catch(e){
+   notify("Ovoz uchun internetni tekshirib, yana bosing.");
+  }
+ }else{
+  audio.pause();soundOn=false;
+  soundBtn.textContent="♪";
+  $("soundTextBtn").textContent="Tabiat ovozini eshit ♫";
+  notify("Ovoz pauzaga qo'yildi");
+ }
+}
+soundBtn.onclick=toggleSound;
+$("soundTextBtn").onclick=toggleSound;
+function notify(text){
+ $("toast").textContent=text;
+ $("toast").classList.add("show");
+ clearTimeout(notify.timer);
+ notify.timer=setTimeout(()=>$("toast").classList.remove("show"),2500);
+}
+
+// Jonli yomg'ir tomchilari
+const canvas=$("rain"),ctx=canvas.getContext("2d");
+let w,h,drops=[];
+function resize(){
+ const dpr=Math.min(devicePixelRatio||1,2);
+ w=innerWidth;h=innerHeight;
+ canvas.width=w*dpr;canvas.height=h*dpr;
+ canvas.style.width=w+"px";canvas.style.height=h+"px";
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ drops=Array.from({length:Math.min(170,Math.floor(w/3.2))},()=>({
+  x:Math.random()*w,y:Math.random()*h,
+  len:9+Math.random()*19,speed:4+Math.random()*8,
+  drift:-1.2+Math.random()*1.3,alpha:.12+Math.random()*.34
+ }));
+}
+function drawRain(){
+ ctx.clearRect(0,0,w,h);
+ for(const d of drops){
+  ctx.beginPath();
+  ctx.moveTo(d.x,d.y);
+  ctx.lineTo(d.x+d.drift,d.y+d.len);
+  ctx.strokeStyle=`rgba(224,239,239,${d.alpha})`;
+  ctx.lineWidth=.7;
+  ctx.stroke();
+  d.x+=d.drift;d.y+=d.speed;
+  if(d.y>h+25){d.y=-25;d.x=Math.random()*w}
+  if(d.x<0)d.x=w;
+ }
+ requestAnimationFrame(drawRain);
+}
+addEventListener("resize",resize);
+resize();drawRain();
+
+// Telefonni qimirlatganda manzara ham mayin siljiydi
+let targetX=0,targetY=0,currentX=0,currentY=0;
+function moveScene(){
+ currentX+=(targetX-currentX)*.035;
+ currentY+=(targetY-currentY)*.035;
+ $("world").style.transform=
+  `scale(1.1) translate(${currentX}px,${currentY}px)`;
+ requestAnimationFrame(moveScene);
+}
+moveScene();
+addEventListener("deviceorientation",e=>{
+ if(e.gamma!==null&&e.beta!==null){
+  targetX=Math.max(-12,Math.min(12,e.gamma*.35));
+  targetY=Math.max(-10,Math.min(10,(e.beta-35)*.18));
+ }
+});
+addEventListener("pointermove",e=>{
+ if(e.pointerType==="touch"){
+  targetX=(e.clientX/w-.5)*9;
+  targetY=(e.clientY/h-.5)*7;
+ }
+});
+</script>
+</body>
+  </html>
